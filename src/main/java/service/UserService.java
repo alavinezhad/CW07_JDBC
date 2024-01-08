@@ -29,4 +29,19 @@ public class UserService {
     public User findUserById(int userId) throws SQLException {
         return userRepository.load(userId);
     }
+    public void updateUser(User user) throws SQLException {
+        System.out.println("***** Edit username and password *****");
+        System.out.println("your current username: \'" + user.getUsername() + '\'');
+        System.out.println("Enter new username: ");
+        String username = scanner.nextLine();
+        System.out.println("Enter new password: ");
+        String password = scanner.nextLine();
+
+        int updateResult = userRepository.update(new User(user.getUser_id(),
+                username, password, user.getSignupDate()));
+        if (updateResult == 1)
+            System.out.println("Username and password are changed.");
+        else
+            System.out.println("username and password are not changed, try again.");
+    }
 }
