@@ -82,8 +82,17 @@ public class UserRepository {
             users[k] = new User(userId, username, password, signupDate);
         }
         return users;
-
-
-
+    }
+    public int[] saveAll(User[] users) throws SQLException {
+        String saveAll = "INSERT INTO \"user\" (username, password, signup_date)\n" +
+                "VALUES (?, ?, now());";
+        PreparedStatement preparedStatement = connection.prepareStatement(saveAll);
+        for (User user : users) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.addBatch();
+            preparedStatement.clearParameters();
+        }
+        return preparedStatement.executeBatch();
     }
 }
