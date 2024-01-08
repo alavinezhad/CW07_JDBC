@@ -28,8 +28,20 @@ public class UserRepository {
         return -1;
     }
 
-    public User load(int userId) {
+    public User load(int userId) throws SQLException {
         String findUser = "SELECT * FROM \"user\" WHERE user_id = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(findUser);
+        preparedStatement.setInt(1, userId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            int userId1 = resultSet.getInt("user_id");
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            Date signupDate = resultSet.getDate("signup_date");
+
+            return new User(userId1, username, password, signupDate);
+        }
         return null;
     }
 }
