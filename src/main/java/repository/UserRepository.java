@@ -44,4 +44,14 @@ public class UserRepository {
         }
         return null;
     }
+    public int update(User user) throws SQLException {
+        String updateUser = "UPDATE \"user\" SET username = ?," +
+                " password = ? WHERE user_id = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(updateUser);
+        preparedStatement.setString(1, user.getUsername());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setInt(3, user.getUser_id());
+
+        return preparedStatement.executeUpdate();
+    }
 }
