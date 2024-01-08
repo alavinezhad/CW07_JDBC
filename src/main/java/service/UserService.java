@@ -44,4 +44,11 @@ public class UserService {
         else
             System.out.println("username and password are not changed, try again.");
     }
+    public void deleteUser(User user) throws SQLException {
+        int deleteResult = userRepository.delete(user);
+        if (deleteResult == 1)
+            System.out.println("user with Id: \'" + user.getUser_id() + "\' is delete.");
+        else
+            System.out.println("deletion is not successful!");
+    }
 }
