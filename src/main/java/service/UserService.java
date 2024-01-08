@@ -51,4 +51,10 @@ public class UserService {
         else
             System.out.println("deletion is not successful!");
     }
+    public void loadAllUsers() throws SQLException {
+        User[] users = userRepository.loadAll();
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
 }
