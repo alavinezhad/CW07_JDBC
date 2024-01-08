@@ -61,4 +61,29 @@ public class UserRepository {
 
         return preparedStatement.executeUpdate();
     }
+    public User[] loadAll() throws SQLException {
+        String loadAll = "SELECT * FROM \"user\";";
+        PreparedStatement preparedStatement = connection.prepareStatement(loadAll,
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        int sumOfUser = 0;
+        while (resultSet.next()) {
+            sumOfUser++;
+        }
+        User[] users = new User[sumOfUser];
+        resultSet.beforeFirst();
+        int k = -1;
+        while (resultSet.next()) {
+            k++;
+            int userId = resultSet.getInt("user_id");
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            Date signupDate = resultSet.getDate("signup_date");
+            users[k] = new User(userId, username, password, signupDate);
+        }
+        return users;
+
+
+
+    }
 }
