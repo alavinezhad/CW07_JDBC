@@ -26,4 +26,7 @@ public class UserService {
         else
             System.out.println("user is not added.try again");
     }
+    public User findUserById(int userId) throws SQLException {
+        return userRepository.load(userId);
+    }
 }
