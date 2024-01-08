@@ -2,10 +2,7 @@ package repository;
 
 import entities.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserRepository {
     private final JdbcConnection jdbcConnection = new JdbcConnection();
@@ -14,7 +11,7 @@ public class UserRepository {
     public UserRepository() throws SQLException {
     }
 
-    public int save(User user) throws SQLException {
+    public long save(User user) throws SQLException {
         String addUser = "INSERT INTO \"user\" (username, password, signup_date)\n" +
                 "VALUES (?, ?, now());";
         PreparedStatement preparedStatement = connection.prepareStatement(addUser,
@@ -22,7 +19,17 @@ public class UserRepository {
         preparedStatement.setString(1, user.getUsername());
         preparedStatement.setString(2, user.getPassword());
 
-        return preparedStatement.executeUpdate();
+        int result = preparedStatement.executeUpdate();
+        if (result == 1) {
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next())
+                return resultSet.getLong(1);
+        }
+        return -1;
     }
 
+    public User load(int userId) {
+        String findUser = "SELECT * FROM \"user\" WHERE user_id = ?;";
+        return null;
+    }
 }
