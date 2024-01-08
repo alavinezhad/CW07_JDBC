@@ -17,4 +17,13 @@ public class Main {
         userService.deleteUser(user8);
         userService.loadAllUsers();
     }
+
+    private static User[] makeBunchOfUsers() {
+        User[] users = new User[4];
+        users[0] = new User("Username1", "1223344");
+        users[1] = new User("Username2", "2334455");
+        users[2] = new User("Username3", "3445566");
+        users[3] = new User("Username4", "4556677");
+        return users;
+    }
 }
