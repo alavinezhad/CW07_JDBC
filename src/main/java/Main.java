@@ -16,14 +16,20 @@ public class Main {
         User user8 = userService.findUserById(8);
         userService.deleteUser(user8);
         userService.loadAllUsers();
+        User[] bunchOfUsers = makeBunchOfUsers();
+        userService.insertBunchOfUsers(bunchOfUsers);
     }
 
     private static User[] makeBunchOfUsers() {
-        User[] users = new User[4];
-        users[0] = new User("Username1", "1223344");
-        users[1] = new User("Username2", "2334455");
-        users[2] = new User("Username3", "3445566");
-        users[3] = new User("Username4", "4556677");
+        User[] users = new User[8];
+        users[0] = new User("alavi1349", "111111");
+        users[1] = new User("farzadafi", "222222");
+        users[2] = new User("ghazi123", "333333");
+        users[3] = new User("sharifi12", "444444");
+        users[4] = new User("parisa123", "555555");
+        users[5] = new User("ariana246", "666666");
+        users[6] = new User("shamim456", "777777");
+        users[7] = new User("dehdari84", "888888");
         return users;
     }
 }
