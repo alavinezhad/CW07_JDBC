@@ -57,4 +57,13 @@ public class UserService {
             System.out.println(user);
         }
     }
+    public void insertBunchOfUsers(User[] users) throws SQLException {
+        int[] insertResults = userRepository.saveAll(users);
+        int k = 0;
+        for (int insertResult : insertResults) {
+            if (insertResult == 1)
+                System.out.println("user # " + (k++) + " is inserted.");
+            System.out.println(insertResult);
+        }
+    }
 }
